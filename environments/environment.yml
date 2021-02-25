@@ -1,0 +1,7 @@
+name: irida-uploader
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - irida-uploader=0.3.1
