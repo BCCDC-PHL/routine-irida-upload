@@ -38,13 +38,14 @@ process irida_uploader {
   executor 'local'
 
   publishDir "${params.outdir}", pattern: "${run_id}_irida_uploader*", mode: 'copy'
+  publishDir "${params.outdir}", pattern: "pipeline_complete.json", mode: 'copy'
 
   input:
     tuple val(run_id), path(sample_list), path(config)
     path(reads)
 
   output:
-    tuple val(run_id), path("${run_id}_irida_uploader.log"), path("${run_id}_irida_uploader_status.info")
+    tuple val(run_id), path("${run_id}_irida_uploader.log"), path("${run_id}_irida_uploader_status.info"), path("pipeline_complete.json")
 
   script:
     def config = config.name != 'NO_FILE' ? "-c ${config}" : ""
@@ -52,5 +53,6 @@ process irida_uploader {
     irida-uploader ${config} --config_parser directory -d . || true
     mv irida-uploader.log ${run_id}_irida_uploader.log
     mv irida_uploader_status.info ${run_id}_irida_uploader_status.info
+    echo "{\\"pipeline_name\\": \\"BCCDC-PHL/routine-irida-upload\\", \\"timestamp_completed\\": \\"\$(date --iso=seconds)\\"}" > pipeline_complete.json
     """
 }
