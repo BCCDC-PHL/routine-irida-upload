@@ -4,7 +4,10 @@ Pipeline for performing routine uploads of illumina sequence data to the [IRIDA]
 
 ## Usage
 ```
-nextflow run BCCDC-PHL/routine-irida-upload --run_dir <illumina run directory> --outdir <output directory> [--config <irida uploader config>]
+nextflow run BCCDC-PHL/routine-irida-upload \
+  --run_dir <illumina run directory> \
+  --outdir <output directory> \
+  [--config <irida uploader config>]
 ```
 
 ## Outputs
