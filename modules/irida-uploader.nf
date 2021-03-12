@@ -17,7 +17,7 @@ process create_sample_list {
   echo "[Data]" > SampleList_Header.csv
   echo "Sample_Name,Project_ID,File_Forward,File_Reverse" >> SampleList_Header.csv
   sed -e '1,/\\[Data\\]/d' SampleSheet.csv > SampleSheet_Data.csv
-  tail -n+2 SampleSheet_Data.csv | awk -F "," 'BEGIN { OFS=FS }; \$10 { print \$1, \$10 }' > Sample_Name_Project_ID.csv
+  tail -n+2 SampleSheet_Data.csv | awk -F "," 'BEGIN { OFS=FS }; \$10 { print \$2, \$10 }' > Sample_Name_Project_ID.csv
   touch Reads_R1.csv
   while IFS="," read -r sample_name project_id; do \
     ls -1 ${run_dir}/Data/Intensities/BaseCalls/\${sample_name}*R1*.fastq.gz | xargs -n 1 basename >> Reads_R1.csv; \
