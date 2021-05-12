@@ -21,5 +21,5 @@ workflow {
   main:
     create_sample_list(ch_run_dir)
     ch_fastq_flattened = ch_fastq.map{ it -> [ it[1][0], it[1][1] ]}.flatten()
-    // irida_uploader(create_sample_list.out.combine(ch_config), ch_fastq_flattened.collect())
+    irida_uploader(create_sample_list.out.combine(ch_config), ch_fastq_flattened.collect())
 }
