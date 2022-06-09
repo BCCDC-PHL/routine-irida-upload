@@ -27,11 +27,11 @@ process create_sample_list {
   tail -n+2 SampleSheet_Data.csv | awk -F "," '${awk_string}' > Sample_Name_Project_ID.csv
   touch Reads_R1.csv
   while IFS="," read -r sample_name project_id; do \
-    ls -1 ${run_dir}/${params.fastq_subdir}/\${sample_name}*R1*.fastq.gz | xargs -n 1 basename >> Reads_R1.csv; \
+    ls -1 ${run_dir}/${params.fastq_subdir}/\${sample_name}_*_R1*.fastq.gz | xargs -n 1 basename >> Reads_R1.csv; \
   done < Sample_Name_Project_ID.csv
   touch Reads_R2.csv
   while IFS="," read -r sample_name project_id; do \
-    ls -1 ${run_dir}/${params.fastq_subdir}/\${sample_name}*R2*.fastq.gz | xargs -n 1 basename >> Reads_R2.csv; \
+    ls -1 ${run_dir}/${params.fastq_subdir}/\${sample_name}_*_R2*.fastq.gz | xargs -n 1 basename >> Reads_R2.csv; \
   done < Sample_Name_Project_ID.csv
   paste -d "," Sample_Name_Project_ID.csv Reads_R1.csv Reads_R2.csv > SampleList_Body.csv
   cat SampleList_Header.csv SampleList_Body.csv > SampleList.csv
